@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breathing Timer</title>
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: sans-serif; }
+    #timer { font-size: 48px; margin-bottom: 20px; }
+    button { padding: 10px 20px; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <div id="timer">Ready</div>
+  <button id="start">Start Breathing</button>
+
+  <script>
+    const timerDisplay = document.getElementById('timer');
+    const startButton = document.getElementById('start');
+
+    const inhaleTime = 4000; // 4 seconds
+    const exhaleTime = 6000; // 6 seconds
+
+    let interval;
+
+    function vibrate(ms) {
+      if (navigator.vibrate) {
+        navigator.vibrate(ms);
+      }
+    }
+
+    function startBreathing() {
+      let phase = 'inhale';
+      timerDisplay.textContent = 'Inhale';
+      vibrate(200);
+
+      interval = setInterval(() => {
+        if (phase === 'inhale') {
+          phase = 'exhale';
+          timerDisplay.textContent = 'Exhale';
+          vibrate(200);
+        } else {
+          phase = 'inhale';
+          timerDisplay.textContent = 'Inhale';
+          vibrate(200);
+        }
+      }, inhaleTime + exhaleTime);
+    }
+
+    startButton.addEventListener('click', () => {
+      clearInterval(interval);
+      startBreathing();
+    });
+  </script>
+</body>
+</html>
